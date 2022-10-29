@@ -10,6 +10,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.app.graphics.treecell.TreeCellImpl;
@@ -34,11 +35,12 @@ public class Main extends Application {
     VBox vBox = new VBox(addItemButton, treeView);
     VBox.setVgrow(treeView, Priority.ALWAYS);
 
-    TextArea textArea = new TextArea();
+    //TextArea textArea = new TextArea();
+    var htmlEditor = new HTMLEditor();
 
-    HBox hBox = new HBox(vBox, textArea);
+    HBox hBox = new HBox(vBox, htmlEditor);
 
-    HBox.setHgrow(textArea, Priority.ALWAYS);
+    HBox.setHgrow(htmlEditor, Priority.ALWAYS);
 
     Scene scene = new Scene(hBox, 1200, 600);
     stage.setTitle("Affairs Storage");
