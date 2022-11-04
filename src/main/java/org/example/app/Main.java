@@ -1,30 +1,26 @@
 package org.example.app;
 
+import com.sun.source.doctree.DocTree;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.app.graphics.treecell.TreeCellImpl;
 import org.example.app.handler.AddItemButtonHandler;
 import org.example.app.handler.DeleteItemHandler;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.example.app.handler.DoubleClickItemHandler;
 
 public class Main extends Application {
 
-  private static final Logger logger = LoggerFactory.getLogger(Main.class);
-
   private static final String ADD_ITEM_BUTTON_TEXT = "Add new group";
+  private static final String APPLICATION_NAME = "Affairs Storage";
 
   public static void main(String[] args) {
     launch();
@@ -32,8 +28,9 @@ public class Main extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
+    HBox mainBox = new HBox();
 
-    TreeView<String> treeView = createTreeView();
+    TreeView<String> treeView = createTreeView(mainBox);
 
     Button addItemButton = new Button(ADD_ITEM_BUTTON_TEXT);
     addItemButton.setOnAction(new AddItemButtonHandler(treeView));
@@ -41,14 +38,10 @@ public class Main extends Application {
     VBox vBox = new VBox(addItemButton, treeView);
     VBox.setVgrow(treeView, Priority.ALWAYS);
 
-    var htmlEditor = new HTMLEditor();
+    mainBox.getChildren().add(vBox);
 
-    HBox hBox = new HBox(vBox, htmlEditor);
-
-    HBox.setHgrow(htmlEditor, Priority.ALWAYS);
-
-    Scene scene = new Scene(hBox, 1200, 600);
-    stage.setTitle("Affairs Storage");
+    Scene scene = new Scene(mainBox, 1200, 600);
+    stage.setTitle(APPLICATION_NAME);
     stage.setScene(scene);
     stage.show();
 
@@ -57,7 +50,7 @@ public class Main extends Application {
   /**
    * Create TreeView element
    */
-  private TreeView<String> createTreeView() {
+  private TreeView<String> createTreeView(HBox mainBox) {
     TreeItem<String> rootTreeItem = new TreeItem<>();
     rootTreeItem.setExpanded(true);
 
@@ -71,6 +64,7 @@ public class Main extends Application {
     });
     // TODO костыль, нужно посмотреть и перенести логику в TreeCell
     treeView.setOnKeyPressed(new DeleteItemHandler(treeView));
+    treeView.setOnMouseClicked(new DoubleClickItemHandler(mainBox));
 
     return treeView;
   }

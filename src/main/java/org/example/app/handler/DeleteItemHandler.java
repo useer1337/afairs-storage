@@ -2,6 +2,7 @@ package org.example.app.handler;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.example.app.graphics.treeitem.AbstractTreeItem;
 
@@ -15,6 +16,8 @@ public class DeleteItemHandler implements EventHandler<KeyEvent> {
 
   @Override
   public void handle(KeyEvent keyEvent) {
-    ((AbstractTreeItem) treeView.getSelectionModel().getSelectedItem()).deleteItem();
+    if (keyEvent.getCode().equals(KeyCode.DELETE)) {
+      ((AbstractTreeItem) treeView.getSelectionModel().getSelectedItem()).deleteItem();
+    }
   }
 }
