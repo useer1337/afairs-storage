@@ -1,12 +1,13 @@
 package org.example.app;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -15,8 +16,13 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import org.example.app.graphics.treecell.TreeCellImpl;
 import org.example.app.handler.AddItemButtonHandler;
+import org.example.app.handler.DeleteItemHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main extends Application {
+
+  private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
   private static final String ADD_ITEM_BUTTON_TEXT = "Add new group";
 
@@ -35,7 +41,6 @@ public class Main extends Application {
     VBox vBox = new VBox(addItemButton, treeView);
     VBox.setVgrow(treeView, Priority.ALWAYS);
 
-    //TextArea textArea = new TextArea();
     var htmlEditor = new HTMLEditor();
 
     HBox hBox = new HBox(vBox, htmlEditor);
@@ -64,6 +69,8 @@ public class Main extends Application {
         return new TreeCellImpl();
       }
     });
+    // TODO костыль, нужно посмотреть и перенести логику в TreeCell
+    treeView.setOnKeyPressed(new DeleteItemHandler(treeView));
 
     return treeView;
   }

@@ -2,12 +2,8 @@ package org.example.app.handler;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.ButtonBar.ButtonData;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
-import javafx.scene.layout.VBox;
 import org.example.app.factory.DialogFactory;
 import org.example.app.graphics.treeitem.GroupTreeItem;
 import org.slf4j.Logger;

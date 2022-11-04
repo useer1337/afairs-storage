@@ -25,11 +25,8 @@ public class AddGroupItemHandler implements EventHandler<ActionEvent> {
     Dialog<String> dialog = dialogFactory.createItemDialog();
 
     dialog.showAndWait()
-        .ifPresentOrElse(groupName -> {
-          var ideaTreeItem = new IdeaTreeItem("new idea");
-          groupTreeItem.getChildren().add(ideaTreeItem);
-        }, () -> {
-          logger.warn("Empty result from dialog");
-        });
+        .ifPresentOrElse(
+            groupItemName -> groupTreeItem.getChildren().add(new IdeaTreeItem(groupItemName)),
+            () -> logger.warn("Empty result from dialog"));
   }
 }

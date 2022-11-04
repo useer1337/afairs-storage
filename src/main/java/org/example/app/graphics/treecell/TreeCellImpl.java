@@ -16,7 +16,6 @@ public class TreeCellImpl extends TreeCell<String> {
       setText(getItem() == null ? "" : getItem());
       setGraphic(getTreeItem().getGraphic());
       setContextMenu(((AbstractTreeItem) getTreeItem()).getMenu());
-      setOnKeyPressed(((AbstractTreeItem) getTreeItem()).getDeleteFromKeyEventHandler());
     }
   }
 }
